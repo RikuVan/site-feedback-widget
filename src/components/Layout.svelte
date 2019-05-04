@@ -18,16 +18,28 @@
     box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.3) !important;
   }
 
+  @media only screen and (max-width: 600px) {
+      div {
+        left: 0; 
+        right: 0; 
+        margin-left: auto; 
+        margin-right: auto; 
+      }
+  }
+
   header,
-  main,
-  footer {
-    margin: auto;
+  main {
     padding-bottom: 20px;
+    margin: auto;
   }
 
   header {
     font-family: "Special Elite", sans-serif;
     padding-top: 20px;
+  }
+
+  footer {
+    margin: 10px auto 0px;
   }
 
 </style>
@@ -40,6 +52,12 @@
     <slot />
   </main>
   <footer>
-    <slot name="footer"/>
+    <a
+      href="https://github.com/webDevAndSausages/world-of-webdevandsausages" 
+      target="_blank" 
+      rel="noopener noreferrer"
+    >
+      Make an issue on Github
+    </a>
   </footer>
 </div>

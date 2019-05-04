@@ -1,18 +1,26 @@
 <script>
-  let ratings = [1, 2, 3, 4, 5]
-  export let current = 0
-  export let onStarClick
+  import { store } from '../store'
+
+  const ratings = [1, 2, 3, 4, 5]
+
+  let selected = 0
+
+  function rate(number) {
+    selected = number
+    // let user confirm selection before transitioning
+		setTimeout(() => store.actions.rate(number), 500)
+	}
 </script>
 
 <div>
   {#each ratings as rating}
-  <span on:click={() => onStarClick(rating)}>
+  <span on:click={() => rate(rating)}>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
       viewBox="0 0 24 24"
-      fill={rating <= current ? "#555" : "none"}
+      fill={rating <= selected ? "#555" : "none"}
       stroke="currentColor"
       stroke-width="2"
       stroke-linecap="round"

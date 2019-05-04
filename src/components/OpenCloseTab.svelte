@@ -1,4 +1,14 @@
-<a on:click="{toggleOpenClose}">^</a>
+<script>
+  import { store } from '../store'
+
+  function onClick() {
+    const state = $store.current
+    if (current !== 'idle') {
+      return store.actions.show()
+    }
+    return store.actions.close()
+  }
+</script>
 
 <style>
   a {
@@ -29,3 +39,5 @@
     height: 8px;
   }
 </style>
+
+<a on:click="{onClick}">^</a>
