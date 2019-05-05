@@ -1,10 +1,6 @@
 <style>
-    :global(*) {
-      box-sizing: border-box;
-      margin: 0;
-    }
-    
-    :global(div) {
+    /* we don't want any truly global styles since this is a widget */
+    :global(aside#site-feedback-widget-container) {
       /* global variables */
       --font-color: #555;
       --border-color: #333;
@@ -17,6 +13,10 @@
       --off-blue: rgb(6, 93, 218, 0.2);
       --star-color: rgb(255, 193, 0);
       --border-radius: 5px;
+
+      box-sizing: border-box;
+      margin: 0;
+      background: #fff;
   
       color: var(--font-color);
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
@@ -24,6 +24,5 @@
         'Segoe UI Emoji', 'Segoe UI Symbol';
       font-size: 14px;
       line-height: 1.4;
-      background: #fff;
     }
   </style>

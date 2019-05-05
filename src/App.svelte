@@ -96,7 +96,7 @@
 	}
 </style>
 
-<span>
+<aside id="site-feedback-widget-container">
 	{#if !isHidden && !thanks && !form}
 	<Layout>
 		<h1 slot="header">Rate this site</h1>
@@ -121,4 +121,4 @@
 		{:else}
 		<div in:fade="{{duration: 1000, delay: 200}}"><OpenCloseTab /></div>
 	{/if}
-</span>
+	</aside>

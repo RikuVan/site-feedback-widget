@@ -17,6 +17,7 @@
     width: 300px;
     border-radius: 5px 5px 0 0;
     box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.3) !important;
+    background: #fff;
   }
 
   @media only screen and (max-width: 600px) {

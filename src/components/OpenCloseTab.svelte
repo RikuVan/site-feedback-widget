@@ -51,6 +51,23 @@
     right: 120px;
   }
 
+  @media only screen and (max-width: 600px) {
+    .tab-collapsed {
+      left: 0; 
+      right: 0; 
+      margin-left: auto; 
+      margin-right: auto; 
+    }
+
+    .tab-open {
+      top: -34px;
+      right: 0;
+      left: 0;
+      margin-left: auto; 
+      margin-right: auto; 
+    }
+  }
+
   svg {
     margin-bottom: -4px;
   }
