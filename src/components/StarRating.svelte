@@ -1,14 +1,16 @@
 <script>
   import { stateStore as store } from '../store'
+  import {db} from '../firebase'
 
   const ratings = [1, 2, 3, 4, 5]
 
   let selected = 0
 
-  function rate(number) {
+  async function rate(number) {
     selected = number
     // let user confirm selection before transitioning
-		setTimeout(() => store.actions.rate(number), 500)
+    await db.saveRating(number)
+		store.actions.rate(number)
 	}
 </script>
 
