@@ -1,5 +1,6 @@
 <script>
   import { fly } from 'svelte/transition';
+  import OpenCloseTab from "./OpenCloseTab.svelte"
 </script>
 
 <style>
@@ -45,6 +46,7 @@
 </style>
 
 <div in:fly="{{y: 200, duration: 1000}}" out:fly="{{y: 200, duration: 500}}">
+  <OpenCloseTab />
   <header>
     <slot name="header" />
   </header>

@@ -1,9 +1,10 @@
 <script>
-  import { store } from '../store'
+  import { stateStore as store } from '../store'
+
+  let collapsed = $store.current === 'idle'
 
   function onClick() {
-    const state = $store.current
-    if (current !== 'idle') {
+    if (collapsed) {
       return store.actions.show()
     }
     return store.actions.close()
@@ -11,33 +12,86 @@
 </script>
 
 <style>
-  a {
+  .open-close-tab {
     text-align: center;
     position: absolute;
-    top: -18px;
-    right: 20px;
-    width: 40px;
-    height: 18px;
+    width: 110px;
+    height: 34px;
     padding-top: 2px;
     cursor: pointer;
     border: 0;
+    border-top-right-radius: var(--border-radius);
+    border-top-left-radius: var(--border-radius);
     outline: 0;
     font-size: 100%;
     vertical-align: baseline;
-    background: transparent;
+    line-height: 2.5;
     margin: 0;
     padding: 0;
     float: none !important;
     touch-action: manipulation;
+    background: var(--primary-blue);
+    color: var(--white);
+    text-transform: uppercase;
+    transition: color 0.3s;
   }
-  a::before {
-    content: '';
-    position: absolute;
-    left: -4px;
-    right: -4px;
-    bottom: -8px;
-    height: 8px;
+
+  .open-close-tab:hover {
+    background: var(--hover-blue);
+  }
+
+  .tab-open {
+    top: -34px;
+    right: 20px;
+  }
+
+  .tab-collapsed {
+    top: none;
+    bottom: -200px;
+    right: 120px;
+  }
+
+  svg {
+    margin-bottom: -4px;
   }
 </style>
 
-<a on:click="{onClick}">^</a>
+<div
+  class="open-close-tab"
+  on:click="{onClick}"
+  class:tab-collapsed="{collapsed}"
+  class:tab-open="{!collapsed}"
+>
+  Feedback {#if collapsed}
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="feather feather-chevron-up"
+  >
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+  {:else}
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="feather feather-x"
+  >
+    <line x1="18" y1="6" x2="6" y2="18"></line>
+    <line x1="6" y1="6" x2="18" y2="18"></line>
+  </svg>
+  {/if}
+</div>

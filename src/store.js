@@ -32,7 +32,7 @@ function reducer(event, state) {
         case 'SUBMIT':
           return { ...state, text: event.payload, submitting: true, event: event.type }
         case 'FINISH':
-          return { ...state, text: event.payload, current: 'thanks', event: event.type }
+          return { ...state, result: event.payload, current: 'thanks', event: event.type }
         case 'CLOSE':
           return { ...initialState, event: event.type }
         default:
@@ -55,7 +55,7 @@ const actions = {
   rate: (payload, state) => reducer({ type: 'RATE', payload }, state),
   close: (_, state) => reducer({ type: 'CLOSE' }, state),
   submit: (payload, state) => reducer({ type: 'SUBMIT', payload }, state),
-  finish: payload => reducer({ type: 'SAVED', payload }, state)
+  finish: (payload, state) => reducer({ type: 'FINISH', payload }, state)
 }
 
 function reduce(actions, initial) {
@@ -65,24 +65,17 @@ function reduce(actions, initial) {
     acc[actionName] = payload => state.update(state => actions[actionName](payload, state))
     return acc
   }, {})
-
-  const stateAfterEffects = derived(state, $a => {
-    if ($a.current === 'rate' && $a.rating > 0) {
-      storage.set('done')
-    } else if ($a.init) {
-      storage.set('seen')
-    }
-    if ($a.current === 'form' && $a.submitting) {
-      console.log('sending text to backend')
-      mappedActions.finish({ response: 'ok' })
-    }
-    if ($a.current === 'thanks') {
-      setTimeout(mappedActions.close, 3000)
-    }
-    return $a
-  })
-
-  return { subscribe: stateAfterEffects.subscribe, actions: mappedActions }
+  return { subscribe: state.subscribe, actions: mappedActions }
 }
 
-export const store = reduce(actions, initialState)
+export const stateStore = reduce(actions, initialState)
+
+export const hide = derived(stateStore, $a => {
+  if ($a.current === 'rate' && $a.rating > 0) {
+    storage.set('done')
+  } else if ($a.init) {
+    storage.set('seen')
+  }
+  const feedback = storage.get()
+  return feedback === 'done' || feedback === 'seen'
+})

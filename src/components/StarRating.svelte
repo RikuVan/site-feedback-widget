@@ -1,5 +1,5 @@
 <script>
-  import { store } from '../store'
+  import { stateStore as store } from '../store'
 
   const ratings = [1, 2, 3, 4, 5]
 
@@ -12,6 +12,15 @@
 	}
 </script>
 
+<style>
+    svg {
+      fill: none;
+    }
+    svg.selected {
+      fill: var(--star-color)
+    }
+  </style>
+
 <div>
   {#each ratings as rating}
   <span on:click={() => rate(rating)}>
@@ -20,7 +29,7 @@
       width="24"
       height="24"
       viewBox="0 0 24 24"
-      fill={rating <= selected ? "#555" : "none"}
+      class:selected={rating <= selected}
       stroke="currentColor"
       stroke-width="2"
       stroke-linecap="round"
