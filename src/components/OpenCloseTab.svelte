@@ -14,7 +14,6 @@
 <style>
   .open-close-tab {
     text-align: center;
-    position: absolute;
     width: 110px;
     height: 34px;
     padding-top: 2px;
@@ -41,13 +40,14 @@
   }
 
   .tab-open {
+    position: absolute;
     top: -34px;
     right: 20px;
   }
 
   .tab-collapsed {
-    top: none;
-    bottom: -200px;
+    position: fixed;
+    bottom: 0px;
     right: 120px;
   }
 
