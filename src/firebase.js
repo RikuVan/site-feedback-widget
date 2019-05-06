@@ -29,10 +29,9 @@ function getDayOfYear() {
 function createDb() {
   const day = getDayOfYear()
 
-  const doc = firebase
-    .firestore()
-    .collection(FEEDBACK)
-    .doc(day)
+  const collection = firebase.firestore().collection(FEEDBACK)
+
+  const doc = collection.doc(day)
 
   const save = key => async value => {
     try {
@@ -40,7 +39,8 @@ function createDb() {
         [key]: firebase.firestore.FieldValue.arrayUnion(value)
       })
     } catch (e) {
-      console.error('Error saving rating to firestore: ', e)
+      // if doc doesn't exist create it with initial value
+      await doc.set({ [key]: value })
     }
     return
   }

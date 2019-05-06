@@ -49,6 +49,7 @@
 		store.actions.submit(text)
 		await db.saveSuggestion(text)
 		store.actions.finish('ok')
+		text = ''
 	}
 </script>
 
